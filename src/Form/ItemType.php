@@ -30,7 +30,6 @@ class ItemType extends AbstractType
             ->add('imagepath', FileType::class, [
                 'label' => 'Item Image (JPEG, PNG)',
                 'mapped' => false,  // We won't map this field to the entity directly
-                'required' => false,  // Optional field
             ])
             ->add('quantityStock', IntegerType::class, [
                 'label' => 'Quantity in Stock',

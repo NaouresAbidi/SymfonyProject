@@ -31,7 +31,7 @@ class Menu
     private ?float $dealPrice = null;
 
     #[ORM\Column(length: 500)]
-    private ?string $imagePath = null;
+    private ?string $imagepath = null;
 
     #[ORM\Column]
     private ?int $quantityStock = null;
@@ -81,7 +81,7 @@ class Menu
         return $this->regularPrice;
     }
 
-    public function setRegularPrice(float $regularPrice): static
+    public function setRegularPrice(float $regularPrice): self
     {
         $this->regularPrice = $regularPrice;
 
@@ -93,7 +93,7 @@ class Menu
         return $this->dealPercentage;
     }
 
-    public function setDealPercentage(float $dealPercentage): static
+    public function setDealPercentage(float $dealPercentage): self
     {
         $this->dealPercentage = $dealPercentage;
 
@@ -105,21 +105,21 @@ class Menu
         return $this->dealPrice;
     }
 
-    public function setDealPrice(float $dealPrice): static
+    public function setDealPrice(float $dealPrice): self
     {
         $this->dealPrice = $dealPrice;
 
         return $this;
     }
 
-    public function getImagePath(): ?string
+    public function getImagepath(): ?string
     {
-        return $this->imagePath;
+        return $this->imagepath;
     }
 
-    public function setImagePath(string $imagePath): static
+    public function setImagepath(string $imagepath): static
     {
-        $this->imagePath = $imagePath;
+        $this->imagepath = $imagepath;
 
         return $this;
     }

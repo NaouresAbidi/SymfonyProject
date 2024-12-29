@@ -33,11 +33,11 @@ class MenuController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedFile = $form->get('image')->getData();
+            $uploadedFile = $form->get('imagepath')->getData();
             if ($uploadedFile) {
-                $uploadDirectory = $this->getParameter('uploadDirectoryMenu'); // Fetch the parameter
+                $uploadDirectoryMenu = $this->getParameter('uploadDirectoryMenu'); // Fetch the parameter
                 $newFilename = uniqid() . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move($uploadDirectory, $newFilename);
+                $uploadedFile->move($uploadDirectoryMenu, $newFilename);
 
                 $menu->setImagePath('/uploads/menus/' . $newFilename);
             }
@@ -60,12 +60,12 @@ class MenuController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedFile = $form->get('image')->getData();
+            $uploadedFile = $form->get('imagepath')->getData();
             if ($uploadedFile) {
                 // Handle the new file upload
-                $uploadDirectory = $this->getParameter('uploadDirectoryMenu'); // Fetch the parameter
+                $uploadDirectoryMenu = $this->getParameter('uploadDirectoryMenu'); // Fetch the parameter
                 $newFilename = uniqid() . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move($uploadDirectory, $newFilename);
+                $uploadedFile->move($uploadDirectoryMenu, $newFilename);
 
                 // Update the image path in the menu
                 $menu->setImagePath('/uploads/menus/' . $newFilename);

@@ -1,17 +1,19 @@
 <?php
 
 namespace App\Form;
-
+use App\Entity\Item;
 use App\Entity\Menu;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
 
 class MenuType extends AbstractType
 {
@@ -25,38 +27,41 @@ class MenuType extends AbstractType
                 'label' => 'Description',
             ])
             ->add('regularPrice', NumberType::class, [
-                'label' => 'Regular Price',
+                'attr' => ['class' => 'form-control', 'id' => 'regularPrice'],
             ])
             ->add('dealPercentage', NumberType::class, [
-                'label' => 'Deal Percentage',
+                'attr' => ['class' => 'form-control', 'id' => 'dealPercentage'],
+                'data' => 0,
             ])
             ->add('dealPrice', NumberType::class, [
-                'label' => 'Deal Price',
+                'attr' => ['class' => 'form-control', 'id' => 'dealPrice'],
             ])
+
             ->add('quantityStock', NumberType::class, [
                 'label' => 'Quantity in Stock',
             ])
-            ->add('image', FileType::class, [
-                'label' => 'Menu Image (JPG or PNG)',
-                'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '2M',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid image file (JPEG or PNG).',
-                    ])
-                ],
+            ->add('imagepath', FileType::class, [
+                'label' => 'Menu Image (JPEG, PNG)',
+                'mapped' => false, // This indicates the file is not directly mapped to the entity
             ])
-            ->add('items', CollectionType::class, [
-                'entry_type' => TextType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'label' => 'Items',
-            ]);
+            ->add('items', EntityType::class, [
+                'class' => Item::class,
+                'choice_label' => function (Item $item) {
+                    return $item->getName(); // Display item name
+                },
+                'multiple' => true,
+                'expanded' => true, // Use checkboxes instead of a multi-select
+                'label' => 'Select Items',
+                'choice_attr' => function (Item $item) {
+                    return [
+                        'data-image' => '/uploads/items/' . basename($item->getImagepath()), // Strip leading path from getImagepath()
+                        'class' => 'item-option', // Custom class for styling
+                    ];
+                },
+            ])
+        ->add('submit', SubmitType::class, [
+            'label' => 'Submit',
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
