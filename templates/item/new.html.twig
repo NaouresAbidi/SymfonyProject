@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New Item{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Create a New Item</h1>
+        {{ form_start(form) }}
+
+        <div class="mb-3">
+            {{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.category, 'Category', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.quantityStock, 'Quantity In Stock', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.quantityStock, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.price, 'Price', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.price, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <!-- Image Upload -->
+        <div class="mb-3">
+            {{ form_label(form.imagepath, 'Item Image (JPEG, PNG)', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.imagepath, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+
+        <div class="mb-3">
+            {{ form_widget(form.submit, {'attr': {'class': ''}}) }}
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}

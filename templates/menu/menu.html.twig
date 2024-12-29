@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Menus</h1>
+
+    <a href="{{ path('app_menu_new') }}">Create new menu</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for menu in menus %}
+            <tr>
+                <td>{{ menu.id }}</td>
+                <td>{{ menu.name }}</td>
+                <td>{{ menu.description }}</td>
+                <td>
+                    <a href="{{ path('menu_show', { id: menu.id }) }}">View</a>
+                    <a href="{{ path('menu_edit', { id: menu.id }) }}">Edit</a>
+                    <form method="post" action="{{ path('menu_delete', { id: menu.id }) }}" style="display:inline-block">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ menu.id) }}">
+                        <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

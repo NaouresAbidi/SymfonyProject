@@ -1,3 +1,79 @@
+/* General Background */
 body {
-    background-color: skyblue;
+    background-color: #F3FDFF; /* Light background */
+    color: #42312A; /* Default text color */
+    font-family: Arial, sans-serif; /* Default font */
+}
+
+/* Buttons */
+button {
+    border: 2px solid #F05310; /* Orange button border */
+    background-color: transparent;
+    color: #F05310;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center; /* Center text inside button */
+    display: inline-block; /* Prevent the button from stretching */
+}
+
+button a {
+    text-decoration: none;
+    color: #F05310;
+    display: inline-block; /* Make the <a> tag take up full space */
+    width: 100%;
+    height: 100%;
+    text-align: center; /* Center the text in the <a> tag */
+}
+
+button:hover {
+    background-color: #F05310;
+    color: white;
+}
+
+button a:hover {
+    color: white;
+}
+
+button:hover a {
+    color: white;
+}
+/* Flexbox for aligning buttons next to each other */
+.action-buttons {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+/* Add space between image and category name in the Name column */
+.table td img {
+    margin-right: 10px; /* Add space to the right of the image */
+}
+/* Food Item Icons */
+.food-icon {
+    color: #BE4A31; /* Food item icon color */
+}
+/* Footer */
+footer {
+    background-color: #2A0C01; /* Dark footer color */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Feedback Section */
+.feedback {
+    background-color: #F5E4DC; /* Light feedback color */
+    padding: 15px;
+    margin-top: 20px;
+}
+
+/* Specific Text Color */
+.text-primary {
+    color: #433029; /* Main text color */
+}
+.text-secondary {
+    color: #42312A; /* Secondary text color */
+}
+/* Logo or Shapes */
+.logo, .shape {
+    color: #F05310; /* Orange color for logo and shapes */
 }

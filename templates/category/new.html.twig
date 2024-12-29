@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Category{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Create New Category</h1>
+
+        <!-- Create Category Form -->
+        <div>
+            {{ form_start(form) }}
+
+            <!-- Name and Description Fields -->
+            <div class="mb-3">
+                {{ form_label(form.name, 'Category Name', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(form.description, 'Category Description', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <!-- Image Upload -->
+            <div class="mb-3">
+                {{ form_label(form.imagePath, 'Category Image (JPEG, PNG)', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.imagePath, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <!-- Submit Button -->
+            <button>Save</button>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
