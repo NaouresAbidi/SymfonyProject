@@ -16,9 +16,12 @@ button {
     text-align: center; /* Center text inside button */
     display: inline-block; /* Prevent the button from stretching */
 }
-
+a{
+    text-decoration: none !important;
+    color: #F05310 ;
+}
 button a {
-    text-decoration: none;
+    text-decoration: none !important;
     color: #F05310;
     display: inline-block; /* Make the <a> tag take up full space */
     width: 100%;
@@ -38,6 +41,40 @@ button a:hover {
 button:hover a {
     color: white;
 }
+
+/* pagination*/
+
+/* Change the color of the page numbers */
+/* Change the color of the page numbers */
+.page-link {
+    color: #F05310;  /* Change to your desired color */
+}
+
+/* Change the background color and border color of the active page */
+.page-item.active .page-link {
+    background-color: #F05310;  /* Change to your desired active page background color */
+    color: #fff;  /* Change the color of the text on the active page */
+    border-color: #F05310;  /* Set the border color of the active page */
+}
+
+/* Change the text color on hover to #F05310 */
+.page-link:hover {
+    color: #F05310;  /* Change the color of the text on hover */
+    background-color: #f8f9fa;  /* Optional: Set a background color on hover for better visibility */
+}
+
+.header-cell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Adjusts spacing between text and icon */
+    padding: 8px; /* Adds padding inside the header cell */
+}
+
+.filter-icon {
+    width: 20px;
+    margin-left: 8px; /* Adds spacing between the text and the icon */
+}
+
 /* Flexbox for aligning buttons next to each other */
 .action-buttons {
     display: flex;

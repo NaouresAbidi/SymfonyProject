@@ -15,10 +15,10 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class ItemController extends AbstractController
 {
     #[Route('/item', name: 'app_item_index')]
-    public function index(ItemRepository $itemRepository): Response
+    public function index(ItemRepository $itemRepository, Request $request): Response
     {
-        $items = $itemRepository->findAll();
-
+        $page = $request->query->getInt('page', 1);
+        $items = $itemRepository->paginateItems($page);
         return $this->render('item/item.html.twig', [
             'items' => $items,
         ]);

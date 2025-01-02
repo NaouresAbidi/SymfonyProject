@@ -15,10 +15,10 @@ class MenuController extends AbstractController
 {
     // Main route
     #[Route('/menu', name: 'app_menu_index')]
-    public function index(MenuRepository $menuRepository): Response
+    public function index(MenuRepository $menuRepository, Request $request): Response
     {
-        $menus = $menuRepository->findAll();
-
+        $page = $request->query->getInt('page', 1);
+        $menus = $menuRepository->paginateMenus($page);
         return $this->render('menu/menu.html.twig', [
             'menus' => $menus,
         ]);
