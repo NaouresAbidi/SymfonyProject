@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Menus{% endblock %}
+
+{% block body %}
+    {% include 'partials/nav.html.twig' %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Menus</h1>
+
+        <!-- Button to Create New Menu -->
+        <div class="mb-4">
+            <button>
+                <a href="{{ path('app_menu_new') }}">Create New Menu</a>
+            </button>
+        </div>
+
+        <!-- Menus Table -->
+        <div class="table-responsive" >
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">
+                        <img src="{{ asset('images/filter.png') }}" alt="" style="width: 20px; margin-left: 5px">
+                        {{ knp_pagination_sortable(menus,'Name','m.name') }}
+                    </th>
+                    <th scope="col">Description</th>
+                    <th scope="col">
+                        <img src="{{ asset('images/filter.png') }}" alt="" style="width: 20px; margin-left: 5px">
+                        {{ knp_pagination_sortable(menus,'Regular Price','m.regularPrice') }}
+                    </th>
+                    <th scope="col">
+                        <img src="{{ asset('images/filter.png') }}" alt="" style="width: 20px; margin-left: 5px">
+                        {{ knp_pagination_sortable(menus,'Deal Percentage','m.dealPercentage') }}
+                    </th>
+                    <th scope="col">
+                        <img src="{{ asset('images/filter.png') }}" alt="" style="width: 20px; margin-left: 5px">
+                        {{ knp_pagination_sortable(menus,'Deal Price','m.dealPrice') }}
+                    </th>
+                    <th scope="col">
+                        <img src="{{ asset('images/filter.png') }}" alt="" style="width: 20px; margin-left: 5px">
+                        {{ knp_pagination_sortable(menus,'Quantity','m.quantityStock') }}
+                    </th>
+                    <th scope="col">Items</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for menu in menus %}
+                    <tr>
+                        <td class="text-center">
+                            <div class="card" style="width: 100px;">
+                                <img class="card-img-top img-fluid" src="{{ asset(menu.imagePath) }}" alt="{{ menu.name }}" style="max-width: 100%; height: auto;">
+                            </div>
+                        </td>                    <td>{{ menu.name }}</td>
+                        <td>{{ menu.description }}</td>
+                        <td>{{ menu.regularPrice }}</td>
+                        <td>{{ menu.dealPercentage }}</td>
+                        <td>{{ menu.dealPrice }}</td>
+                        <td>{{ menu.quantityStock }}</td>
+
+                        <td>
+                            {% if menu.items is not empty %}
+                                <ul>
+                                    {% for item in menu.items %}
+                                        <li>{{ item.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                No items
+                            {% endif %}
+                        </td>
+                        <td>
+                            <button>
+                                <a href="{{ path('app_menu_edit', { id: menu.id }) }}">Edit</a>
+                            </button>
+                            <form method="post" action="{{ path('app_menu_delete', { id: menu.id }) }}" style="display:inline-block">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ menu.id) }}">
+                                <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="10" class="text-center">No menus found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {{ knp_pagination_render(menus) }}
+    </div>
+{% endblock %}

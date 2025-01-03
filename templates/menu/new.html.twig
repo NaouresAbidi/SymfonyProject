@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New Menu{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Create a New Menu</h1>
+
+        {{ form_start(form) }}
+
+        <div class="mb-3">
+            {{ form_label(form.name, 'Menu Name', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.regularPrice, 'Regular Price', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.regularPrice, {'attr': {'class': 'form-control', 'id': 'regularPrice'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.dealPercentage, 'Deal Percentage', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.dealPercentage, {'attr': {'class': 'form-control', 'id': 'dealPercentage'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.dealPrice, 'Deal Price', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.dealPrice, {'attr': {'class': 'form-control', 'id': 'dealPrice'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.quantityStock, 'Quantity In Stock', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.quantityStock, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.imagepath, 'Menu Image (JPEG, PNG)', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.imagepath, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <!-- Render the items field with images -->
+        <div class="form-group">
+            <label for="items">Select Items</label>
+            <div class="row">
+                {% for item in form.items %}
+                    <div class="col-2 mb-3">
+                        <div class="form-check">
+                            {{ form_widget(item) }} <!-- Render checkbox -->
+
+                            <!-- Render the item name -->
+                            <label class="form-check-label" for="{{ item.vars.id }}">
+                                {{ item.vars.label }} <!-- Display the item name -->
+                            </label>
+
+                            <!-- Image contained in a Bootstrap card -->
+                            <div class="card" style="width: 100%;">
+                                <img src="{{ asset(attribute(item.vars, 'attr')['data-image']) }}" alt="{{ item.vars.label }}" class="card-img-top" style="max-height: 100px; object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="mb-3 text-center">
+            {{ form_widget(form.submit, {'attr': {'class': 'w-50'}}) }}
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+
+{% endblock %}

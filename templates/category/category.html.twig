@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category List{% endblock %}
+
+{% block body %}
+    {% include 'partials/nav.html.twig' %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Category List</h1>
+
+        <div>
+            <button>
+                <a href="{{ path('app_category_new') }}">Add a new Food Category</a>
+            </button>
+        </div><br>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th style="display: flex; align-items: center;">
+                        <img src="{{ asset('images/filter.png') }}" alt="" style="width: 20px; margin-left: 5px">
+                        {{ knp_pagination_sortable(categories,'Name', 'c.name') }}
+                    </th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td><img src="{{ category.imagePath }}" alt="{{ category.name }}" class="img-fluid" style="max-width: 50px;"> {{ category.name }}</td>
+                        <td>{{ category.description }}</td>
+                        <td class="action-buttons">
+                            <button><a href="{{ path('app_category_edit', { id: category.id }) }}">Edit</a></button>
+                            <form method="post" action="{{ path('app_category_delete', { id: category.id }) }}" onsubmit="return confirm('Are you sure?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {{ knp_pagination_render(categories) }}
+        </div>
+    </div>
+
+{% endblock %}

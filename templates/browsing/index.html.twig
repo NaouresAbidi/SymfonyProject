@@ -1,0 +1,113 @@
+{# templates/browsing/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Browse Menus and Items{% endblock %}
+{% block body %}
+    {% block header %}
+        {% include 'partials/header.html.twig' %}
+    {% endblock %}
+    <div class="container mt-5">
+        <!-- Menus Carousel -->
+        <div class="container mt-5">
+            <!-- Menus Carousel -->
+            <div class="row mb-4">
+                <div class="col">
+                    <h3>Our Menus</h3>
+                    <div id="menuCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for menu in menus %}
+                                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                    <img src="{{ menu.imagePath }}" class="d-block w-100" alt="{{ menu.name }}">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>{{ menu.name }}</h5>
+                                        <p>{{ menu.description }}</p>
+                                        <button data-bs-toggle="modal" style="background-color: #F05310; color: white " data-bs-target="#menuDetailsModal" data-menu-id="{{ menu.id }}">
+                                            View Details
+                                        </button>
+
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#menuCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#menuCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Menu Details Modal -->
+            <div class="modal fade" id="menuDetailsModal" tabindex="-1" aria-labelledby="menuDetailsModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="menuDetailsModalLabel"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Description:</strong> <span id="menuDescription"></span></p>
+                            <p><strong>Regular Price:</strong> $<span id="menuRegularPrice"></span></p>
+                            <p><strong>Deal Price:</strong> $<span id="menuDealPrice"></span></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-bs-dismiss="modal">Close</button>
+                            <button type="button">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Items Display with Add to Cart Button -->
+        <div class="row mb-4">
+            <div class="col">
+                <h3>Items</h3>
+                <div class="row" id="itemContainer">
+                    {% for item in items %}
+                        <div class="col-12 col-md-4 mb-3">
+                            <div class="card">
+                                <img src="{{ item.imagePath }}" class="card-img-top" alt="{{ item.name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.name }}</h5>
+                                    <p class="card-text">{{ item.description }}</p>
+                                    <button class="add-to-cart" data-item-id="{{ item.id }}" data-item-name="{{ item.name }}" data-item-price="{{ item.price }}">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Popup -->
+        <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cartModalLabel">Your Cart</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="cartContent"></p>
+                        <p>Total: $<span id="cartTotal">0.00</span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-bs-dismiss="modal">Continue Browsing</button>
+                        <button type="button">Finish Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% block footer %}
+        {% include 'partials/footer.html.twig' %}
+    {% endblock %}
+{% endblock %}
+
